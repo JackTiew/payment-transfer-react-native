@@ -18,10 +18,7 @@ import {
   getTransactions,
   type Transaction,
 } from "@/services/Transaction";
-
-function formatAmount(amount: number): string {
-  return Math.abs(amount).toFixed(2);
-}
+import { formatAmount } from "@/utils/common";
 
 function getTransactionTitle(item: Transaction): string {
   if (item.amount < 0) {
@@ -72,8 +69,8 @@ export default function TransactionsScreen() {
   const renderItem = ({ item }: { item: Transaction }) => {
     const isFundIn = item.amount >= 0;
     const amountLabel = isFundIn
-      ? `RM ${formatAmount(item.amount)}`
-      : `-RM ${formatAmount(item.amount)}`;
+      ? `RM ${formatAmount(String(item.amount))}`
+      : `-RM ${formatAmount(String(item.amount))}`;
 
     return (
       <View style={styles.transactionRow}>

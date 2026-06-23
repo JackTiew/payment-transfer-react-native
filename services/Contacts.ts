@@ -24,11 +24,9 @@ function getPrimaryPhone(contact: Contacts.Contact): string | undefined {
   return contact.phoneNumbers?.[0]?.number?.trim() || undefined;
 }
 
-function toContactRecipient(contact: Contacts.Contact): ContactRecipient | null {
-  if (!contact.id) {
-    return null;
-  }
-
+function toContactRecipient(
+  contact: Contacts.ExistingContact,
+): ContactRecipient | null {
   const name = getContactDisplayName(contact);
 
   if (name === "Unknown") {

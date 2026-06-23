@@ -17,10 +17,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Button } from "@/components/Button";
-import { ScreenHeader } from "@/components/ScreenHeader";
-import { BANKS, type Bank } from "@/constants/banks";
+import { Button } from "@/components/common/Button";
+import { ScreenHeader } from "@/components/common/ScreenHeader";
+import { BANKS } from "@/constants/banks";
 import { spacing } from "@/constants/theme";
+import { Bank } from "@/constants/types";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const ACCOUNT_NUMBER_ACCESSORY_ID = "account-number-accessory";

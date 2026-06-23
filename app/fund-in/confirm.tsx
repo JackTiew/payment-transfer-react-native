@@ -4,23 +4,13 @@ import { useMemo, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Button } from "@/components/Button";
-import { ScreenHeader } from "@/components/ScreenHeader";
+import { Button } from "@/components/common/Button";
+import { ScreenHeader } from "@/components/common/ScreenHeader";
 import { spacing } from "@/constants/theme";
 import { useTheme } from "@/contexts/ThemeContext";
-import { reload } from "@/services/Transaction";
 import { requireAuthentication } from "@/services/BiometricAuth";
-
-function formatAmount(amount: string | string[] | undefined): string {
-  const value = Array.isArray(amount) ? amount[0] : amount;
-  const numericAmount = Number.parseFloat(value ?? "0");
-
-  if (!Number.isFinite(numericAmount)) {
-    return "0.00";
-  }
-
-  return numericAmount.toFixed(2);
-}
+import { reload } from "@/services/Transaction";
+import { formatAmount } from "@/utils/common";
 
 export default function FundInConfirmScreen() {
   const { amount } = useLocalSearchParams<{ amount: string }>();

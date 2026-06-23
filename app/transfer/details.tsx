@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Button } from "@/components/Button";
-import { ScreenHeader } from "@/components/ScreenHeader";
+import { Button } from "@/components/common/Button";
+import { ScreenHeader } from "@/components/common/ScreenHeader";
 import { spacing } from "@/constants/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 

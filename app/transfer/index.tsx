@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
-import { type Href, router } from "expo-router";
+import { router, type Href } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import {
   ActivityIndicator,
@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ScreenHeader } from "@/components/ScreenHeader";
+import { ScreenHeader } from "@/components/common/ScreenHeader";
 import { spacing } from "@/constants/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
@@ -34,19 +34,19 @@ type TransferListItem =
   | { type: "empty"; id: string; message: string }
   | { type: "action"; id: string; label: string }
   | {
-      type: "recent";
-      id: string;
-      name: string;
-      bankId: string;
-      bankName: string;
-      accountNumber: string;
-    }
+    type: "recent";
+    id: string;
+    name: string;
+    bankId: string;
+    bankName: string;
+    accountNumber: string;
+  }
   | {
-      type: "contact";
-      id: string;
-      name: string;
-      phone?: string;
-    };
+    type: "contact";
+    id: string;
+    name: string;
+    phone?: string;
+  };
 
 function buildListData(
   recentTransfers: RecentTransfer[],
@@ -321,9 +321,9 @@ export default function TransferScreen() {
             contentContainerStyle={styles.listContent}
             ItemSeparatorComponent={({ leadingItem }) =>
               leadingItem?.type === "new" ||
-              leadingItem?.type === "header" ||
-              leadingItem?.type === "empty" ||
-              leadingItem?.type === "action"
+                leadingItem?.type === "header" ||
+                leadingItem?.type === "empty" ||
+                leadingItem?.type === "action"
                 ? null
                 : (
                   <View style={styles.separator} />

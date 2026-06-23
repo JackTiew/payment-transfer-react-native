@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
-import { AppToast } from "@/components/AppToast";
+import { AppToast } from "@/components/common/AppToast";
 import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
 
 function RootLayoutNav() {

@@ -1,15 +1,15 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
   AmountKeypad,
   centsToDecimal,
   formatCentsDisplay,
-} from "@/components/AmountKeypad";
-import { ScreenHeader } from "@/components/ScreenHeader";
+} from "@/components/common/AmountKeypad";
+import { ScreenHeader } from "@/components/common/ScreenHeader";
 import { spacing } from "@/constants/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 

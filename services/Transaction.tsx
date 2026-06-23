@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { RECENT_TRANSFERS_STORAGE_KEY, TRANSACTIONS_STORAGE_KEY, USER_STORAGE_KEY } from "@/constants/types";
 import { getUserInfo, updateUserBalance } from "@/services/User";
 import { formatDate } from "@/utils/common";
 
@@ -34,9 +35,7 @@ export type TransferInput = {
   recipientName?: string;
 };
 
-const TRANSACTIONS_STORAGE_KEY = "@transactions";
-const RECENT_TRANSFERS_STORAGE_KEY = "@recent_transfers";
-const USER_STORAGE_KEY = "@user";
+
 const MAX_RECENT_TRANSFERS = 5;
 
 async function readTransactions(): Promise<Transaction[]> {

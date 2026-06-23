@@ -1,9 +1,9 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { type Href, router } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 
-import { AmountKeypad, centsToDecimal } from "@/components/AmountKeypad";
+import { AmountKeypad, centsToDecimal } from "@/components/common/AmountKeypad";
 import { useTheme } from "@/contexts/ThemeContext";
 
 export default function FundInScreen() {

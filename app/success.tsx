@@ -4,24 +4,14 @@ import { useMemo } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Button } from "@/components/Button";
+import { Button } from "@/components/common/Button";
 import { spacing } from "@/constants/theme";
+import { SuccessType } from "@/constants/types";
 import { useTheme } from "@/contexts/ThemeContext";
-
-type SuccessType = "reload" | "transfer";
+import { formatAmount } from "@/utils/common";
 
 function getParam(value: string | string[] | undefined): string {
   return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
-}
-
-function formatAmount(amount: string): string {
-  const numericAmount = Number.parseFloat(amount);
-
-  if (!Number.isFinite(numericAmount)) {
-    return "0.00";
-  }
-
-  return numericAmount.toFixed(2);
 }
 
 function SummaryRow({
