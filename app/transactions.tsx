@@ -70,7 +70,7 @@ export default function TransactionsScreen() {
     const isFundIn = item.amount >= 0;
     const amountLabel = isFundIn
       ? `RM ${formatAmount(String(item.amount))}`
-      : `-RM ${formatAmount(String(item.amount))}`;
+      : `-RM ${formatAmount(String(Math.abs(item.amount)))}`;
 
     return (
       <View style={styles.transactionRow}>

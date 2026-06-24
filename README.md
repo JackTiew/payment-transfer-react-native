@@ -2,6 +2,18 @@
 
 A cross-platform digital banking demo app built with Expo and React Native. Users can fund their account, transfer money, view transactions, pick recipients from contacts, and confirm sensitive actions with biometric authentication.
 
+## Demonstration
+
+Videos and the Android build are available in the [Assessment Google Drive folder](https://drive.google.com/drive/u/3/folders/1EcQYb-Gzs0xJ2-yNhAtJYUE_5S_XhBnn):
+
+| File | Description |
+| --- | --- |
+| `Demonstration.mp4` | Full app walkthrough |
+| `Face ID.mp4` | Face ID biometric authentication |
+| `Fingerprint.mp4` | Fingerprint biometric authentication |
+| `Web.mp4` | Web platform demo |
+| `universal.apk` | Android APK for testing |
+
 ## Project Structure
 
 ```

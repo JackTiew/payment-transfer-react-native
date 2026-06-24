@@ -64,7 +64,7 @@ export default function TransferConfirmScreen() {
 
     try {
       const isAuthenticated = await requireAuthentication({
-        promptMessage: "Approve transfer with biometrics",
+        promptMessage: "Approve transfer with authentication",
         fallbackTitle: "Approve transfer",
         fallbackMessage:
           "Biometric authentication is unavailable. Confirm to complete this transfer.",
