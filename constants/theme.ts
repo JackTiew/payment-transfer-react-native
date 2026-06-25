@@ -58,6 +58,9 @@ export const spacing = {
   xl: 32,
 } as const;
 
+/** iPhone 14 Pro Max logical width (430pt). Used to cap web layout width. */
+export const webMaxAppWidth = 430;
+
 export function getColors(scheme: ColorScheme): ThemeColors {
   return scheme === "dark" ? darkColors : lightColors;
 }
