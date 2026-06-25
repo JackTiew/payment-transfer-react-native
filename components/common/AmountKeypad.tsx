@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useMemo } from "react";
 import {
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -98,6 +99,96 @@ export function AmountKeypad({
     onAmountChange(appendCentDigit(amount, key));
   };
 
+  const keypadContent = (
+    <View
+      style={[
+        styles.overlay,
+        !dimBackground && styles.overlayTransparent,
+        Platform.OS === "web" && styles.webOverlay,
+      ]}
+    >
+      {dimBackground ? (
+        <Pressable style={styles.backdrop} onPress={onClose} />
+      ) : (
+        <View style={styles.backdrop} />
+      )}
+      <View style={[styles.sheet, { paddingBottom: insets.bottom + spacing.md }]}>
+        <View style={styles.sheetHeader}>
+          <Pressable
+            onPress={onClose}
+            hitSlop={8}
+            style={({ pressed }) => [
+              styles.cancelButton,
+              pressed && styles.cancelButtonPressed,
+            ]}
+          >
+            <Text style={styles.cancelText}>Cancel</Text>
+          </Pressable>
+        </View>
+        <View style={styles.handle} />
+        {showAmountHeader ? (
+          <>
+            <Text style={styles.sheetTitle}>{title}</Text>
+            <Text style={styles.amountDisplay}>
+              RM {formatCentsDisplay(amount)}
+            </Text>
+          </>
+        ) : null}
+
+        <View style={styles.keypad}>
+          {KEYPAD_KEYS.map((row, rowIndex) => (
+            <View key={rowIndex} style={styles.keypadRow}>
+              {row.map((key, keyIndex) =>
+                key ? (
+                  <Pressable
+                    key={key}
+                    onPress={() => handleKeyPress(key)}
+                    style={({ pressed }) => [
+                      styles.key,
+                      pressed && styles.keyPressed,
+                    ]}
+                  >
+                    {key === "backspace" ? (
+                      <Ionicons
+                        name="backspace-outline"
+                        size={24}
+                        color={colors.text}
+                      />
+                    ) : (
+                      <Text style={styles.keyText}>{key}</Text>
+                    )}
+                  </Pressable>
+                ) : (
+                  <View key={`spacer-${keyIndex}`} style={styles.keySpacer} />
+                ),
+              )}
+            </View>
+          ))}
+        </View>
+
+        <Pressable
+          onPress={onDone}
+          disabled={!canSubmit}
+          style={({ pressed }) => [
+            styles.doneButton,
+            !canSubmit && styles.doneButtonDisabled,
+            pressed && canSubmit && styles.doneButtonPressed,
+          ]}
+        >
+          <Text style={styles.doneButtonText}>Done</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+
+  if (Platform.OS === "web") {
+    if (!visible) {
+      return null;
+    }
+
+    return <View style={styles.webRoot}>{keypadContent}</View>;
+  }
+
   return (
     <Modal
       visible={visible}
@@ -105,94 +196,28 @@ export function AmountKeypad({
       transparent
       onRequestClose={onClose}
     >
-      <View
-        style={[
-          styles.overlay,
-          !dimBackground && styles.overlayTransparent,
-        ]}
-      >
-        {dimBackground ? (
-          <Pressable style={styles.backdrop} onPress={onClose} />
-        ) : (
-          <View style={styles.backdrop} />
-        )}
-        <View style={[styles.sheet, { paddingBottom: insets.bottom + spacing.md }]}>
-          <View style={styles.sheetHeader}>
-            <Pressable
-              onPress={onClose}
-              hitSlop={8}
-              style={({ pressed }) => [
-                styles.cancelButton,
-                pressed && styles.cancelButtonPressed,
-              ]}
-            >
-              <Text style={styles.cancelText}>Cancel</Text>
-            </Pressable>
-          </View>
-          <View style={styles.handle} />
-          {showAmountHeader ? (
-            <>
-              <Text style={styles.sheetTitle}>{title}</Text>
-              <Text style={styles.amountDisplay}>
-                RM {formatCentsDisplay(amount)}
-              </Text>
-            </>
-          ) : null}
-
-          <View style={styles.keypad}>
-            {KEYPAD_KEYS.map((row, rowIndex) => (
-              <View key={rowIndex} style={styles.keypadRow}>
-                {row.map((key, keyIndex) =>
-                  key ? (
-                    <Pressable
-                      key={key}
-                      onPress={() => handleKeyPress(key)}
-                      style={({ pressed }) => [
-                        styles.key,
-                        pressed && styles.keyPressed,
-                      ]}
-                    >
-                      {key === "backspace" ? (
-                        <Ionicons
-                          name="backspace-outline"
-                          size={24}
-                          color={colors.text}
-                        />
-                      ) : (
-                        <Text style={styles.keyText}>{key}</Text>
-                      )}
-                    </Pressable>
-                  ) : (
-                    <View key={`spacer-${keyIndex}`} style={styles.keySpacer} />
-                  ),
-                )}
-              </View>
-            ))}
-          </View>
-
-          <Pressable
-            onPress={onDone}
-            disabled={!canSubmit}
-            style={({ pressed }) => [
-              styles.doneButton,
-              !canSubmit && styles.doneButtonDisabled,
-              pressed && canSubmit && styles.doneButtonPressed,
-            ]}
-          >
-            <Text style={styles.doneButtonText}>Done</Text>
-          </Pressable>
-        </View>
-      </View>
+      {keypadContent}
     </Modal>
   );
 }
 
 function createStyles(colors: ReturnType<typeof useTheme>["colors"]) {
   return StyleSheet.create({
+    webRoot: {
+      ...StyleSheet.absoluteFillObject,
+      zIndex: 1000,
+    },
     overlay: {
       flex: 1,
       justifyContent: "flex-end",
       backgroundColor: "rgba(0, 0, 0, 0.45)",
+    },
+    webOverlay: {
+      position: "absolute",
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
     },
     overlayTransparent: {
       backgroundColor: "transparent",
