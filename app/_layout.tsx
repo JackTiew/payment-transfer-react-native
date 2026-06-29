@@ -2,6 +2,10 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useMemo, type ReactNode } from "react";
 import { Platform, StyleSheet, View } from "react-native";
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 
 import { AppToast } from "@/components/common/AppToast";
 import { webMaxAppWidth } from "@/constants/theme";
@@ -36,9 +40,11 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   return (
-    <ThemeProvider>
-      <RootLayoutNav />
-    </ThemeProvider>
+    <SafeAreaProvider initialWindowMetrics={initialWindowMetrics}>
+      <ThemeProvider>
+        <RootLayoutNav />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
 

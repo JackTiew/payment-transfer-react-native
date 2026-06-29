@@ -1,7 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
@@ -68,29 +68,36 @@ export default function TransferAmountScreen() {
       <View style={styles.container}>
         <ScreenHeader title="Transfer" showBack={false} />
 
-        <View style={styles.recipientCard}>
-          {recipientName ? (
-            <>
-              <Text style={styles.cardLabel}>Recipient</Text>
-              <Text style={styles.cardValue}>{recipientName}</Text>
-            </>
-          ) : null}
-          <Text
-            style={[
-              styles.cardLabel,
-              recipientName ? styles.cardLabelSpaced : undefined,
-            ]}
-          >
-            Bank
-          </Text>
-          <Text style={styles.cardValue}>{bankName}</Text>
-          <Text style={[styles.cardLabel, styles.cardLabelSpaced]}>
-            Account number
-          </Text>
-          <Text style={styles.cardValue}>{accountNumber}</Text>
-          <Text style={[styles.cardLabel, styles.cardLabelSpaced]}>
-            Enter amount
-          </Text>
+        <ScrollView
+          style={styles.flex}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.recipientCard}>
+            {recipientName ? (
+              <>
+                <Text style={styles.cardLabel}>Recipient</Text>
+                <Text style={styles.cardValue}>{recipientName}</Text>
+              </>
+            ) : null}
+            <Text
+              style={[
+                styles.cardLabel,
+                recipientName ? styles.cardLabelSpaced : undefined,
+              ]}
+            >
+              Bank
+            </Text>
+            <Text style={styles.cardValue}>{bankName}</Text>
+            <Text style={[styles.cardLabel, styles.cardLabelSpaced]}>
+              Account number
+            </Text>
+            <Text style={styles.cardValue}>{accountNumber}</Text>
+          </View>
+        </ScrollView>
+
+        <View style={styles.amountSection}>
+          <Text style={styles.cardLabel}>Enter amount</Text>
           <Text style={styles.amountDisplay}>
             RM {formatCentsDisplay(amount)}
           </Text>
@@ -121,12 +128,26 @@ function createStyles(colors: ReturnType<typeof useTheme>["colors"]) {
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.md,
     },
+    flex: {
+      flex: 1,
+    },
+    scrollContent: {
+      paddingBottom: spacing.md,
+    },
     recipientCard: {
       backgroundColor: colors.surface,
       borderRadius: 12,
       borderWidth: 1,
       borderColor: colors.border,
       padding: spacing.lg,
+    },
+    amountSection: {
+      backgroundColor: colors.surface,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: colors.border,
+      padding: spacing.lg,
+      marginBottom: spacing.md,
     },
     cardLabel: {
       fontSize: 12,

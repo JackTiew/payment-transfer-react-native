@@ -59,7 +59,8 @@ export default function TransferDetailsScreen() {
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.flex}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? spacing.md : 0}
       >
         <View style={styles.container}>
           <ScreenHeader title="Transfer Details" />
@@ -68,6 +69,7 @@ export default function TransferDetailsScreen() {
             style={styles.flex}
             contentContainerStyle={styles.form}
             keyboardShouldPersistTaps="handled"
+            automaticallyAdjustKeyboardInsets
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.fieldGroup}>
